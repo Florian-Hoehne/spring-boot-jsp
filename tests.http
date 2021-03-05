@@ -2,7 +2,7 @@
 GET http://localhost:8080/
 
 ### Returns jsp from resources
-GET http://localhost:8080/templates/test.jsp
+GET http://localhost:8080/webapp/templates/other.jsp
 
 ### serves from webapp
-GET http://localhost:8080/hello.html
+GET http://localhost:8080/index.html

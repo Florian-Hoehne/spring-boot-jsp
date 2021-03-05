@@ -1,6 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+import org.springframework.boot.gradle.tasks.bundling.BootWar
 
 plugins {
+    id("war")
     id("org.springframework.boot") version "2.4.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.4.30"
@@ -17,8 +20,9 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":web-client"))
     compileOnly("javax.servlet.jsp:javax.servlet.jsp-api:2.3.3")
-    implementation("javax.servlet:jstl:1.2")
+    implementation("javax.servlet:jstl")
     implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -32,6 +36,10 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "1.8"
     }
+}
+
+tasks.getByName<BootWar>("bootWar") {
+    enabled = true
 }
 
 tasks.withType<Test> {
